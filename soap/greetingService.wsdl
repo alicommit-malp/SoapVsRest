@@ -1,0 +1,40 @@
+
+<definitions name = "GreetingService"
+   targetNamespace = "http://www.examples.com/wsdl/GreetingService.wsdl"
+   xmlns = "http://schemas.xmlsoap.org/wsdl/"
+   xmlns:soap = "http://schemas.xmlsoap.org/wsdl/soap/"
+   xmlns:tns = "http://www.examples.com/wsdl/GreetingService.wsdl"
+   xmlns:xsd = "http://www.w3.org/2001/XMLSchema">
+   <message name = "GreetingRequest">
+      <part name = "userName" type = "xsd:string"/>
+   </message>
+   <message name = "GreetingResponse">
+      <part name = "result" type = "xsd:string"/>
+   </message>
+   <portType name = "Greeting_PortType">
+      <operation name = "Greeting">
+         <input message = "tns:GreetingRequest"/>
+         <output message = "tns:GreetingResponse"/>
+      </operation>
+   </portType>
+   <binding name = "Greeting_Binding" type = "tns:Greeting_PortType">
+      <soap:binding style = "rpc"
+         transport = "http://schemas.xmlsoap.org/soap/http"/>
+      <operation name = "Greeting">
+         <soap:operation soapAction = "Greeting"/>
+         <input>
+            <soap:body encodingStyle = "http://schemas.xmlsoap.org/soap/encoding/" namespace = "urn:examples:GreetingService" use = "encoded"/>
+         </input>
+         <output>
+            <soap:body encodingStyle = "http://schemas.xmlsoap.org/soap/encoding/" namespace = "urn:examples:GreetingService" use = "encoded"/>
+         </output>
+      </operation>
+   </binding>
+   <service name = "Greeting_Service">
+      <documentation>WSDL File for GreetingService</documentation>
+      <port binding = "tns:Greeting_Binding" name = "Greeting_Port">
+         <soap:address
+            location = "http://www.examples.com/Greeting/" />
+      </port>
+   </service>
+</definitions>
