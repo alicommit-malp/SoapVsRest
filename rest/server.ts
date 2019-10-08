@@ -4,6 +4,7 @@ app.listen(3000, () => {
  console.log("Server running on port 3000");
 });
 
-app.get("/url", (req, res, next) => {
-    res.json(["Tony","Lisa","Michael","Ginger","Food"]);
+app.get("/greeting", (req, res, next) => {
+    console.log(req);
+    res.send("Hello dear: " + req.query.name);
    });
