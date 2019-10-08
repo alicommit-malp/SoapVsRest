@@ -1,11 +1,12 @@
 # SOAP vs REST
 
-This article will demystify the battle between SQAP and REST API once for all . As a software developer I can remember the struggles which I have under went to understand the real story behind the SOAP and REST APIs and this article will try to simplify them as mush as possible. as always hard one first :) 
+This article will demystify the enigma of SQAP or REST once for all . As a software developer I can remember the struggles which I have endured to understand the real story behind the SOAP and REST APIs and therefore in this article I will try to simplify them as mush as possible. so without any further adiue let's dive in.
 
 ## SOAP
-It stands for ["Simple Object Access Protocol"]("https://en.wikipedia.org/wiki/SOAP") but please forget the abbriviation and just learn it as SOAP like my name which is Ali , who knows maybe it stands for "Artificial Language Intelligence" :) , there was a time which SOAP abbriviation was making sence but maybe not anymore. 
+It stands for [Simple Object Access Protocol]("https://en.wikipedia.org/wiki/SOAP") but please forget the abbriviation and just learn it as SOAP like my name which is Ali , who knows maybe it stands for "Artificial Language Intelligence" :) , there was a time which SOAP abbriviation was making sence but maybe not anymore. 
 
 ### Whats is a <strong>Protocol</string>
+If I asked you 
 
 ```
 How are you?
@@ -13,11 +14,13 @@ How are you?
 
 How can I make sure that you will answer "fine" ? no way right ? 
 
+how about
+
 ```
 2 + 2 = ? 
 ```
 
-but this time I can be sure enough that your answer is 4 right ? because me as the writer and you as the reader both are using the same protocol which is mathematic . this is the defenition of a protocol. SOAP is a protocol as well.
+this time I can be quite sure that your answer is 4, right ? because me as the writer and you as the reader both are using the same protocol which is mathematic . this is the defenition of a protocol. SOAP is a protocol as well.
 
 In SOAP protocol in order to call a function which is taking a name as its argument and response with a greeting message like this 
 
@@ -59,29 +62,9 @@ and we will receive a response like this
 </soap:Envelope>
 ```
 
-```
-You may ask why it is so complicated ? 
-```
+As it can seen above, in order to call a simple Greeting service, there are a lot of meta data which needs to be transmitted, meanwhile the complexity of the SOAP is not ending here and there is one more piece which is required for the SOAP in order to function. WSDL or [Web Service Description Language](https://en.wikipedia.org/wiki/Web_Services_Description_Language) is a super complicated XML file which the SOAP web-service is using to explain its services to the clients, basically it's announcing the details of the SOAP envelope that you need to generate for your request.
 
-The reason is it's not designed for human to understand. the idea of the web services born with the idea of letting computers to be able to talk to one another.
-
-```
-You may ask, but computers were able to talk to one another via TCP or UDP why SOAP ? 
-```
-
-The answer is simple , there are so many platforms , programming languages , operation systems and so on. If you are a C# developer and you want to use a functionality of a service which has been written in JAVA or C++. you need to port the assemblies to your platform or re-write the program from the scratch and what if its developer was chineese and the documentation is in Mandarin , then you will need a translator for the documentation and then to re-design the application according to the limitations of your desire language and platform and so on.
-
-But just desiging a protocol was not enough because the next issue was how these web services can know before hand how to call and consume one another and that was the motivation behind the idea of WSDL or [Web Service Description Language"](https://en.wikipedia.org/wiki/Web_Services_Description_Language) another super complicated XML file which is describing how a web service is willing to serve its functionalities.
-
-In order to uderstand the complexity of the WSDL files let's consider our Greeting service 
-
-```javascript
-Greeting: function(args) { 
-    return { result: "Hello dear " + args.name};
-}
-```
-
-to explain to the clients that we have service called Greeting and it takes one string argument and return a string as result the WSDL will something like this 
+Below you can find the WSDL of the greeting service which has been mentioned above
 
 ```xml
 <definitions name = "GreetingService"
@@ -125,5 +108,59 @@ to explain to the clients that we have service called Greeting and it takes one 
 </definitions>
 ```
 
+As it can be seen it is a complicated XML code for a simple service, but considering the interoperablity of it, will justify its complexity, moreover there are plenty of tools out there to generate WSDL for you.
+
+### Pros 
+* [WS-Security](https://en.wikipedia.org/wiki/WS-Security)
+* [WS-AtomicTransaction](https://en.wikipedia.org/wiki/WS-Atomic_Transaction)
+* [WS-ReliableMessaging](https://en.wikipedia.org/wiki/WS-ReliableMessaging)
+* Language, platform, and transport independent
+* Works well in distributed enterprise environments
+* Standardized
+* Provides significant pre-build extensibility in the form of the WS standards
+* Built-in error handling
+* Automation when used with certain language products
+
+### Cons 
+* High bandwidth usage 
+* Complex to learn 
+* heavy to parse and process 
+* only support XML 
+
 ## REST
-REST stands for ["Representational State Transfer"](https://en.wikipedia.org/wiki/Representational_state_transfer) which is exactly what it is.
+REST stands for ["Representational State Transfer"](https://en.wikipedia.org/wiki/Representational_state_transfer). If you figured out the SOAP therefore understanding REST will be piece of cake.
+
+REST is not protocol like SOAP, and also it has been designed to work over the HTTP protocol while SOAP is independeant of any language, platform and transport.
+
+In REST in order to call a function which is taking a name as its argument and response with a greeting message like this 
+
+```javascript
+Greeting: function(args) { 
+    return { result: "Hello dear " + args.name};
+}
+```
+
+We should ask it like this
+
+```
+http://server:port/greeting?name=Ali-Alp
+```
+
+and we will receive a response like this
+
+```
+Hello dear Ali-Alp
+```
+
+### Pros 
+* No expensive tools require to interact with the Web service
+* Easy to learn 
+* Efficient bandwidth usage(Smaller message size comparing to SOAP)
+* Fast (no extensive processing required)
+* Closer to other Web technologies in design philosophy
+
+### Cons
+* Not very secure 
+* External documentation of the data model is required 
+
+I hope you have a better understanding of both SOAP and REST API, to answer the enigma I should say that there is no enigma in the first place. maybe both SOAP and REST are being used in same direction but they are totally for different applications. A rule of thumb, use REST for most of your web-services and in case you really stuck with the available features of the REST API and you did your research enough then have a look at the SOAP protocol.  
